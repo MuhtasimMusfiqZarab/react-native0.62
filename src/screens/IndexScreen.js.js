@@ -1,19 +1,20 @@
 // at the end this index file will contain all the screens
 import React, {useLayoutEffect} from 'react';
+import {View, Text, StyleSheet} from 'react-native';
+
 import {createStackNavigator} from '@react-navigation/stack';
 
 //importing the screens
 import HomeScreen from './HomeScreen';
 import ProfileScreen from './ProfileScreen';
 
-import {Button} from 'react-native';
-
 //creating the dtack navigator
 const Stack = createStackNavigator();
 
-export default function MyStack() {
+export default function IndexScreen() {
   return (
     <Stack.Navigator
+      //make home as initial route
       initialRouteName="Home"
       screenOptions={{
         headerStyle: {
@@ -50,3 +51,6 @@ export default function MyStack() {
     </Stack.Navigator>
   );
 }
+
+//This is the styling
+const styles = StyleSheet.create({});

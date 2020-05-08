@@ -1,37 +1,14 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 //This need to be inported before anything is imported for navigation pyurposes
 import 'react-native-gesture-handler';
 
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
-
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-import Box from './components/Box';
 
 //importing all the navigation screens
-import Router from './navigation';
+import Router from './screens/IndexScreen.js';
+
+//import the blog provider
+import {BlogProvider} from './context/BlogContext';
 
 const App = () => {
   return (
@@ -41,4 +18,13 @@ const App = () => {
   );
 };
 
-export default App;
+// export default App;
+
+//exporting my own custom component // here children is the app
+export default () => {
+  return (
+    <BlogProvider>
+      <App />
+    </BlogProvider>
+  );
+};
