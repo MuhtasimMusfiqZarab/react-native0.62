@@ -1,10 +1,16 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Text, View, Button} from 'react-native';
 
-const ProfileScreen = ({navigation}) => {
+const ProfileScreen = ({navigation, route}) => {
   return (
-    <View>
-      <Text>This is profile</Text>
+    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <Text>{`This is profile for ${route.params.name}`}</Text>
+      <Button
+        title="Go to home screen"
+        onPress={() =>
+          navigation.navigate('Home', {post: 'Redirected from prolile'})
+        }
+      />
     </View>
   );
 };
