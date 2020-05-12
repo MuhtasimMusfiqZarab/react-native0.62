@@ -6,6 +6,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 //importing the screens
 import HomeScreen from './HomeScreen';
+import ShowScreen from './ShowScreen';
 import ProfileScreen from './ProfileScreen';
 
 //creating the dtack navigator
@@ -32,6 +33,14 @@ export default function IndexScreen() {
         //configuration of the header
         options={{
           title: 'Home',
+        }}
+      />
+      <Stack.Screen
+        name="Show"
+        component={ShowScreen}
+        //configuration of the header
+        options={{
+          title: 'Blog',
         }}
       />
       <Stack.Screen

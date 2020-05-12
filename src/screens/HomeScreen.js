@@ -17,7 +17,7 @@ import {Context} from '../context/BlogContext';
 
 //using route to get the data from the other screens (here the profile)
 const HomeScreen = ({navigation, route}) => {
-  //we are getting the value from context
+  //we are getting the value from context // we are distructiuring from the value props passed inside create context
   const {state, addBlogpost, deleteblogPost} = useContext(Context);
 
   //This is for animation purpose
@@ -47,12 +47,15 @@ const HomeScreen = ({navigation, route}) => {
         data={state}
         keyExtractor={(blogpost) => blogpost.title}
         renderItem={({item}) => (
-          <View style={styles.container}>
-            <Text style={styles.title}>{item.title}</Text>
-            <TouchableOpacity onPress={() => deleteblogPost(item.id)}>
-              <Icon name="trash" size={30} color="#900" />
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Show', {id: item.id})}>
+            <View style={styles.container}>
+              <Text style={styles.title}>{item.title}</Text>
+              <TouchableOpacity onPress={() => deleteblogPost(item.id)}>
+                <Icon name="trash" size={30} color="#900" />
+              </TouchableOpacity>
+            </View>
+          </TouchableOpacity>
         )}
       />
       <Button
