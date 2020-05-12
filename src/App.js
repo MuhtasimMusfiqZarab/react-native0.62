@@ -8,7 +8,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import Router from './screens/IndexScreen.js';
 
 //import the blog provider
-import {BlogProvider} from './context/BlogContext';
+import {Provider} from './context/BlogContext';
 
 const App = () => {
   return (
@@ -23,8 +23,8 @@ const App = () => {
 //exporting my own custom component // here children is the app
 export default () => {
   return (
-    <BlogProvider>
+    <Provider>
       <App />
-    </BlogProvider>
+    </Provider>
   );
 };

@@ -1,7 +1,8 @@
-import React, {useReducer} from 'react';
+//file for automation of Context creation
+import createDataContext from './createDataContext';
 
 //creating context object here
-const BlogContext = React.createContext();
+// const BlogContext = React.createContext();
 
 //here is my reducer function
 // here the state is the blogPosts defined inside BlogProvider
@@ -15,23 +16,18 @@ const blogReducer = (state, action) => {
   }
 };
 
-// BlogProvider takes another component as an argument and passes it's children to the Provider
-export const BlogProvider = ({children}) => {
-  // here are all the blog posts //  (reducer, initial state)
-  const [blogPosts, dispatch] = useReducer(blogReducer, []);
+//helper function for adding a blogpost // we need to ge dispatch function here which is available inside the provider of createData context
+const addBlogpost = (dispatch) => {
+  //without dispatching right away we are creating a function which will dispatch the action
 
-  //helper function for adding a blogpost
-  const addBlogpost = () => {
+  return () => {
     dispatch({type: 'ADD_BLOGPOST'});
   };
-
-  return (
-    //here we are getting values to value prop to communicate with the index screen so that it can very easily dispatch an action
-    <BlogContext.Provider value={{data: blogPosts, addBlogpost}}>
-      {children}
-    </BlogContext.Provider>
-  );
 };
 
-//export the blog context object that we have created
-export default BlogContext;
+// putting the necessary data as argument inside createDataContext, 2nd arg is object with all the actions
+export const {Context, Provider} = createDataContext(
+  blogReducer,
+  {addBlogpost},
+  [],
+);
