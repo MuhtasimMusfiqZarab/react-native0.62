@@ -7,6 +7,7 @@ import {
   FlatList,
   SafeAreaView,
   StyleSheet,
+  TouchableOpacity,
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -17,7 +18,7 @@ import {Context} from '../context/BlogContext';
 //using route to get the data from the other screens (here the profile)
 const HomeScreen = ({navigation, route}) => {
   //we are getting the value from context
-  const {state, addBlogpost} = useContext(Context);
+  const {state, addBlogpost, deleteblogPost} = useContext(Context);
 
   //This is for animation purpose
   const fadeAnim = useRef(new Animated.Value(0)).current; // Initial value for opacity: 0
@@ -48,7 +49,9 @@ const HomeScreen = ({navigation, route}) => {
         renderItem={({item}) => (
           <View style={styles.container}>
             <Text style={styles.title}>{item.title}</Text>
-            <Icon name="trash" size={30} color="#900" />
+            <TouchableOpacity onPress={() => deleteblogPost(item.id)}>
+              <Icon name="trash" size={30} color="#900" />
+            </TouchableOpacity>
           </View>
         )}
       />
