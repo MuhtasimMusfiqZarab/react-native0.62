@@ -6,7 +6,10 @@ import {
   Button,
   FlatList,
   SafeAreaView,
+  StyleSheet,
 } from 'react-native';
+
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 //importing  to get the data
 import {Context} from '../context/BlogContext';
@@ -34,7 +37,7 @@ const HomeScreen = ({navigation, route}) => {
       style={{
         opacity: fadeAnim,
         flex: 1,
-        alignItems: 'center',
+        alignItems: 'stretch',
         justifyContent: 'center',
       }}>
       {route.params ? <Text>{route.params.post}</Text> : null}
@@ -42,7 +45,12 @@ const HomeScreen = ({navigation, route}) => {
       <FlatList
         data={state}
         keyExtractor={(blogpost) => blogpost.title}
-        renderItem={({item}) => <Text>{item.title}</Text>}
+        renderItem={({item}) => (
+          <View style={styles.container}>
+            <Text style={styles.title}>{item.title}</Text>
+            <Icon name="trash" size={30} color="#900" />
+          </View>
+        )}
       />
       <Button
         title="Go to Jane's profile"
@@ -51,5 +59,23 @@ const HomeScreen = ({navigation, route}) => {
     </Animated.View>
   );
 };
+
+//styling the component here
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: 20,
+    paddingHorizontal: 10,
+    borderBottomWidth: 1,
+    borderColor: 'gray',
+  },
+  title: {
+    fontSize: 18,
+  },
+  icon: {
+    fontSize: 24,
+  },
+});
 
 export default HomeScreen;
