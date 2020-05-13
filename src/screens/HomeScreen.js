@@ -3,9 +3,7 @@ import {
   Animated,
   Text,
   View,
-  Button,
   FlatList,
-  SafeAreaView,
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';

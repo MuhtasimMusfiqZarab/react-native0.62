@@ -15,10 +15,15 @@ const blogReducer = (state, action) => {
         ...state,
         {
           id: Math.floor(Math.random() * 99999),
-          title: action.payload.content,
+          title: action.payload.title,
           content: action.payload.content,
         },
       ];
+
+    case 'EDIT_BLOGPOST':
+      return state.map((blogPost) => {
+        return blogPost.id === action.payload.id ? action.payload : blogPost;
+      });
 
     case 'DELETE_BLOGPOST':
       return state.filter((blogPost) => blogPost.id !== action.payload);
@@ -36,7 +41,20 @@ const addBlogpost = (dispatch) => {
   return (title, content, callback) => {
     dispatch({type: 'ADD_BLOGPOST', payload: {title, content}});
     //after dispatch we would run the callback which will redirect us to Home page
-    callback();
+    if (callback) {
+      callback();
+    }
+  };
+};
+
+//this is for editing blogPost
+const editBlogpost = (dispatch) => {
+  return (id, title, content, callback) => {
+    dispatch({type: 'EDIT_BLOGPOST', payload: {id, title, content}});
+    //after dispatch we would run the callback which will redirect us to Home page
+    if (callback) {
+      callback();
+    }
   };
 };
 
@@ -51,6 +69,6 @@ const deleteblogPost = (dispatch) => {
 // putting the necessary data as argument inside createDataContext, 2nd arg is object with all the actions
 export const {Context, Provider} = createDataContext(
   blogReducer,
-  {addBlogpost, deleteblogPost},
+  {addBlogpost, deleteblogPost, editBlogpost},
   [],
 );

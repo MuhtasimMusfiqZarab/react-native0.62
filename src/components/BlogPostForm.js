@@ -2,7 +2,11 @@ import React, {useState, useContext} from 'react';
 
 import {View, Text, StyleSheet, TextInput, Button} from 'react-native';
 
-const BlogPostForm = () => {
+const BlogPostForm = ({initialValues, onSubmit}) => {
+  //saving for the form value
+  const [title, setTitle] = useState(initialValues.title);
+  const [content, setContent] = useState(initialValues.content);
+
   return (
     <View>
       <Text style={styles.label}>Edit Title</Text>
@@ -18,15 +22,18 @@ const BlogPostForm = () => {
         style={styles.input}
       />
 
-      <Button
-        title="Submit"
-        onPress={() => {
-          //we are using 3rd argument which is a callback runs after the function  is executed
-          editBlogpost(title, content, () => navigation.navigate('Home'));
-        }}
-      />
+      <Button title="Submit" onPress={() => onSubmit(title, content)} />
     </View>
   );
+};
+
+//to make sure that initial prop does not cause any issue if the value of it is undefined (when we create a blog at the first time)
+//giving component some default property values (if no value is passed from other component this values will be used)
+BlogPostForm.defaultProps = {
+  initialValues: {
+    title: '',
+    content: '',
+  },
 };
 
 const styles = StyleSheet.create({

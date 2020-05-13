@@ -1,62 +1,31 @@
-import React, {useState, useContext} from 'react';
+import React, {useContext} from 'react';
 
-import {View, Text, StyleSheet, TextInput, Button} from 'react-native';
+import {StyleSheet} from 'react-native';
 
 //we need context to get the state and edit the blog using the id
 import {Context} from '../context/BlogContext';
 
+//reusign for form component
+import BlogPostForm from '../components/BlogPostForm';
+
 const EditScreen = ({navigation, route}) => {
+  const id = route.params.id;
   //reaching to context object
-  const {state} = useContext(Context);
+  const {state, editBlogpost} = useContext(Context);
 
   //finding the blog from the state
-  const blogPost = state.find((blogPost) => blogPost.id === route.params.id);
-
-  //saving for the form value
-  const [title, setTitle] = useState(blogPost.title);
-  const [content, setContent] = useState(blogPost.content);
+  const blogPost = state.find((blogPost) => blogPost.id === id);
 
   return (
-    <View>
-      <Text style={styles.label}>Edit Title</Text>
-      <TextInput
-        value={title}
-        onChangeText={(text) => setTitle(text)}
-        style={styles.input}
-      />
-      <Text style={styles.label}>Edit Content</Text>
-      <TextInput
-        value={content}
-        onChangeText={(content) => setContent(content)}
-        style={styles.input}
-      />
-
-      <Button
-        title="Submit"
-        onPress={() => {
-          //we are using 3rd argument which is a callback runs after the function  is executed
-          editBlogpost(title, content, () => navigation.navigate('Home'));
-        }}
-      />
-    </View>
+    <BlogPostForm
+      initialValues={{title: blogPost.title, content: blogPost.content}}
+      onSubmit={(title, content) => {
+        editBlogpost(id, title, content, () => navigation.navigate('Home'));
+      }}
+    />
   );
 };
 
-const styles = StyleSheet.create({
-  //style for showing the text input
-  input: {
-    fontSize: 18,
-    borderWidth: 1,
-    borderColor: 'black',
-    marginBottom: 15,
-    padding: 5,
-    margin: 5,
-  },
-  label: {
-    fontSize: 20,
-    marginBottom: 5,
-    marginLeft: 5,
-  },
-});
+const styles = StyleSheet.create({});
 
 export default EditScreen;
