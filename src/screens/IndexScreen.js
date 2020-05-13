@@ -1,13 +1,13 @@
 // at the end this index file will contain all the screens
-import React, {useLayoutEffect} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import React from 'react';
+import {StyleSheet} from 'react-native';
 
 import {createStackNavigator} from '@react-navigation/stack';
 
 //importing the screens
 import HomeScreen from './HomeScreen';
 import ShowScreen from './ShowScreen';
-import ProfileScreen from './ProfileScreen';
+import CreateScreen from './CreateScreen';
 
 //creating the dtack navigator
 const Stack = createStackNavigator();
@@ -44,17 +44,11 @@ export default function IndexScreen() {
         }}
       />
       <Stack.Screen
-        name="Profile"
-        component={ProfileScreen}
+        name="Create"
+        component={CreateScreen}
+        //configuration of the header
         options={{
-          title: 'Profile',
-          headerStyle: {
-            backgroundColor: '#f4511e',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
+          title: 'Create Blog',
         }}
       />
     </Stack.Navigator>

@@ -15,7 +15,8 @@ const blogReducer = (state, action) => {
         ...state,
         {
           id: Math.floor(Math.random() * 99999),
-          title: `Blog Post #${state.length + 1}`,
+          title: action.payload.content,
+          content: action.payload.content,
         },
       ];
 
@@ -30,9 +31,12 @@ const blogReducer = (state, action) => {
 //helper function for adding a blogpost // we need to ge dispatch function here which is available inside the provider of createData context
 const addBlogpost = (dispatch) => {
   //without dispatching right away we are creating a function which will dispatch the action
+  //this inner function we are running in different components
 
-  return () => {
-    dispatch({type: 'ADD_BLOGPOST'});
+  return (title, content, callback) => {
+    dispatch({type: 'ADD_BLOGPOST', payload: {title, content}});
+    //after dispatch we would run the callback which will redirect us to Home page
+    callback();
   };
 };
 

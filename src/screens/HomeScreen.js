@@ -18,7 +18,7 @@ import {Context} from '../context/BlogContext';
 //using route to get the data from the other screens (here the profile)
 const HomeScreen = ({navigation, route}) => {
   //we are getting the value from context // we are distructiuring from the value props passed inside create context
-  const {state, addBlogpost, deleteblogPost} = useContext(Context);
+  const {state, deleteblogPost} = useContext(Context);
 
   //This is for animation purpose
   const fadeAnim = useRef(new Animated.Value(0)).current; // Initial value for opacity: 0
@@ -33,6 +33,15 @@ const HomeScreen = ({navigation, route}) => {
     // this is
   }, []);
 
+  //updating navigation options from inside a component (adding header icon)
+  navigation.setOptions({
+    headerRight: () => (
+      <TouchableOpacity onPress={() => navigation.navigate('Create')}>
+        <Icon name="plus" size={30} color="#900" style={{paddingRight: 10}} />
+      </TouchableOpacity>
+    ),
+  });
+
   return (
     <Animated.View
       style={{
@@ -42,7 +51,6 @@ const HomeScreen = ({navigation, route}) => {
         justifyContent: 'center',
       }}>
       {route.params ? <Text>{route.params.post}</Text> : null}
-      <Button title="Add Blog Post" onPress={addBlogpost} />
       <FlatList
         data={state}
         keyExtractor={(blogpost) => blogpost.title}
@@ -57,10 +65,6 @@ const HomeScreen = ({navigation, route}) => {
             </View>
           </TouchableOpacity>
         )}
-      />
-      <Button
-        title="Go to Jane's profile"
-        onPress={() => navigation.navigate('Profile', {name: 'Jane'})}
       />
     </Animated.View>
   );
