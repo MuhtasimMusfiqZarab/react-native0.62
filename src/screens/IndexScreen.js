@@ -8,6 +8,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from './HomeScreen';
 import ShowScreen from './ShowScreen';
 import CreateScreen from './CreateScreen';
+import EditScreen from './EditScreen';
 
 //creating the dtack navigator
 const Stack = createStackNavigator();
@@ -49,6 +50,14 @@ export default function IndexScreen() {
         //configuration of the header
         options={{
           title: 'Create Blog',
+        }}
+      />
+      <Stack.Screen
+        name="Edit"
+        component={EditScreen}
+        //configuration of the header
+        options={{
+          title: 'Edit Blog',
         }}
       />
     </Stack.Navigator>
